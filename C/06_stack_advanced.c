@@ -11,7 +11,7 @@ int Initialize(IntStack* s, int max); // Stack 초기화
 int Push(IntStack* s, int x); // item 삽입
 int Pop(IntStack* s, int* x); // item 삭제
 int Peek(const IntStack* s, int* x); // 가장 최근에 삽입된 아이템 반환
-void Clear(const IntStack* s); // Stack의 전체 삭제
+void Clear(IntStack* s); // Stack의 전체 삭제
 int Capacity(const IntStack* s); // Stack의 최대 용량
 int Size(const IntStack* s); // Stack의 데이터 개수
 int IsEmpty(const IntStack* s); // Stack이 비어있는지 확인
@@ -30,7 +30,7 @@ int Initialize(IntStack* s, int max){
     return 0;
 }
 
-int Push(IntStack* s, int x){
+int Push(IntStack* s, int x){ // x => item과 같은 역할
     if (s->ptr >= s->max){ // if(top >= STACK_SIZE-1)
         return -1;
     }
@@ -47,3 +47,21 @@ int Pop(IntStack* s, int* x){
 
     return 0;
 }
+
+int Peek(const IntStack* s, int* x){ //const는 상수 고정
+    if(s->ptr <= 0){
+        return -1;
+    }
+    *x = s->stk[s->ptr - 1]; 
+
+    return 0;
+}
+
+void Clear(IntStack* s){
+    s->ptr = 0;
+}
+
+int Capacity(const IntStack* s){
+    return s->max;
+}
+
