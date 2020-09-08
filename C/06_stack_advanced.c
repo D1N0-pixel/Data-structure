@@ -30,7 +30,7 @@ void main(){
     while (1){
         int menu, x;
         printf("현재 데이터 수 %d / %d\n", Size(&s), Capacity(&s));
-        printf("(1)Push (2)Pop (3)Peek (4)Print (5)Clear (6)Search (7)IsFull/IsEmpty (0) Terminate :");
+        printf("(1)Push (2)Pop (3)Peek (4)Print (5)Clear (6)Search (7)IsFull/IsEmpty (0)Terminate :");
         scanf("%d", &menu);
 
         if (menu == 0)
@@ -45,7 +45,7 @@ void main(){
             break;
         case 2:
             if (Pop(&s, &x) == -1)
-                printf("오류 : Peek 실패\n\n", x);
+                printf("오류 : Pop 실패\n\n", x);
             else
                 printf("Pop data는 %d입니다.\n\n", x);
             break;
