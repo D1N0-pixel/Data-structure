@@ -22,6 +22,54 @@ int Search(const IntQueue* q, int x); // Queue 내부 검색
 void Print(const IntQueue* q); // Queue 출력
 void Terminate(IntQueue* q); // Queue 종료
 
+void main(){
+    IntQueue que;
+
+    if (Initialize(&que, 64) == -1) {
+        printf("생성 실패");
+        return 1;
+    }
+    while (1){
+        int menu, x;
+
+        printf("현재 데이터 수 : %d / %d \n", Size(&que), Capacity(&que));
+        printf("(1)Enqueue (2)Dequeue (3)Peek (4)Print (5)Search (0)Terminate : ");
+        scanf("%d", &menu);
+
+        if (menu == 0)
+            break;
+        switch (menu) {
+        case 1:
+            printf("데이터 :");
+            scanf("%d", &x);
+            if (Enqueue(&que, x) == -1)
+                printf("인큐 실패");
+            printf("\n");
+            break;
+        case 2:
+            if (Dequeue(&que, &x) == -1)
+                printf("디큐 실패");
+            else
+                printf("Dequeue한 Data는 %d입니다\n\n",x);
+            break;
+        case 3:
+            if (Peek(&que, &x) == -1)
+                printf("Peek 실패\n");
+            else
+                printf("Peek한 Data는 %d입니다\n\n", x);
+            break;
+        case 4:
+            Print(&que);
+            break;
+        case 5:
+            printf("찾고자 하는 값을 입력하시오 :");
+            scanf("%d", &x);
+            Search(&que, x);
+        }
+    }
+    Terminate(&que);
+}
+
 int Initialize(IntQueue* q, int max) {
     q->ptr = q->front = q->rear = 0;
     //s->ptr = 0;
@@ -67,8 +115,8 @@ int Dequeue(IntQueue* q, int* x) {
 }
 
 int Peek(const IntQueue* q, int* x) {
-    if (q->front == q->max)
-        q->front = 0;
+    if (q->ptr <= 0)
+        return -1;
     *x = q->que[q->front];
     // *x = s->stk[s->ptr-1];
 
@@ -98,7 +146,7 @@ int IsFull(const IntQueue* q) {
 int Search(const IntQueue* q, int x) {
     int i, idx;
     for  (i = 0; i <q->ptr; i++) {
-        if (q->que[idx = (i + q->front) % q->max] == x)
+        if (q->que[idx = (i + q->front) % q->max] == x) //q->que[q->front]==x
             return printf("%d번 인덱스에 존재함\n\n",idx);
     }
     return -1;
