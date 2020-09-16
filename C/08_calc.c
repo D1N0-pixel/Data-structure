@@ -28,12 +28,13 @@ int push(LinkedStackType* s, int item){
     if (temp == NULL){ //메모리 할당이 되지 않았으면 에러를 발생시킴
         // fprintf(stderr, "메모리 할당 에러\n");
         printf("메모리 할당 에러\n");
-        return;
+        return -1;
     }
     else { //할당이 됐으면 기존 노드와 연결시켜준다
         temp->item = item;
         temp->link = s->top;
         s->top = temp;
+        return 0;
     }
 }
 
